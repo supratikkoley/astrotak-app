@@ -6,6 +6,7 @@ import 'package:astrologer_app/utils/color_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,16 +23,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        textTheme: const TextTheme(
-          bodyText1: TextStyle(
+        textTheme: TextTheme(
+          bodyText1: GoogleFonts.montserrat(
             color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-          bodyText2: TextStyle(
-            color: Colors.black87,
+            fontSize: 17.0,
             fontWeight: FontWeight.w500,
-            fontSize: 12,
+          ),
+          bodyText2: GoogleFonts.montserrat(
+            color: Colors.black87,
+            fontSize: 12.0,
+            // fontWeight: FontWeight.w500,
           ),
         ),
       ),
@@ -48,8 +49,8 @@ class MyHomePage extends StatelessWidget {
   final controller = Get.put(BottomNavController());
 
   final _pages = [
-    const PanchangPage(),
-    const TalkToAstrologerPage(),
+    PanchangPage(),
+    TalkToAstrologerPage(),
     Container(),
     Container(),
   ];

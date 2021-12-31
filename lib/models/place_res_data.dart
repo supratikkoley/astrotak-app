@@ -21,7 +21,7 @@ class PlaceResponseData {
   bool success;
   String message;
   String apiName;
-  List<Datum> data;
+  List<Place> data;
 
   factory PlaceResponseData.fromJson(Map<String, dynamic> json) =>
       PlaceResponseData(
@@ -30,7 +30,7 @@ class PlaceResponseData {
         success: json["success"],
         message: json["message"],
         apiName: json["apiName"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<Place>.from(json["data"].map((x) => Place.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,8 +43,8 @@ class PlaceResponseData {
       };
 }
 
-class Datum {
-  Datum({
+class Place {
+  Place({
     required this.placeName,
     required this.placeId,
   });
@@ -52,7 +52,7 @@ class Datum {
   String placeName;
   String placeId;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Place.fromJson(Map<String, dynamic> json) => Place(
         placeName: json["placeName"],
         placeId: json["placeId"],
       );
