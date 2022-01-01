@@ -60,21 +60,22 @@ class TalkToAstrologerPage extends StatelessWidget {
                   )
                 : Expanded(
                     child: ListView.separated(
-                    itemCount: _talkToAstroController
-                            .searchedAstrologerList.value?.length ??
-                        0,
-                    padding: const EdgeInsets.only(
-                        top: 0, right: 0, left: 16, bottom: 16),
-                    itemBuilder: (context, index) {
-                      return AstrologerCard(
-                        astrologer: _talkToAstroController
-                            .searchedAstrologerList.value![index],
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const Divider();
-                    },
-                  )),
+                      itemCount: _talkToAstroController
+                              .searchedAstrologerList.value?.length ??
+                          0,
+                      padding: const EdgeInsets.only(
+                          top: 0, right: 0, left: 16, bottom: 16),
+                      itemBuilder: (context, index) {
+                        return AstrologerCard(
+                          astrologer: _talkToAstroController
+                              .searchedAstrologerList.value![index],
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const Divider();
+                      },
+                    ),
+                  ),
           )
         ],
       ),
@@ -86,7 +87,7 @@ class TalkToAstrologerPage extends StatelessWidget {
       padding: const EdgeInsets.only(
         right: 10.0,
         left: 16.0,
-        top: 16.0,
+        // top: 16.0,
         bottom: 10.0,
       ),
       child: Row(
@@ -94,8 +95,10 @@ class TalkToAstrologerPage extends StatelessWidget {
         children: [
           Text(
             "Talk to an Astrolger",
-            style:
-                Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
+            style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
           ),
           Row(
             children: [
@@ -108,10 +111,50 @@ class TalkToAstrologerPage extends StatelessWidget {
                   scale: 2.8,
                 ),
               ),
-              const SizedBox(width: 10),
-              Image.asset(
-                AssetPaths.filterIcon,
-                scale: 2.8,
+              const SizedBox(width: 14),
+              InkWell(
+                onTap: () {
+                  _talkToAstroController.showFilterBottomSheet();
+                },
+                child: Stack(
+                  children: [
+                    Container(
+                      padding:
+                          const EdgeInsets.only(top: 11, right: 11, bottom: 10),
+                      // color: Colors.yellow,
+                      child: Image.asset(
+                        AssetPaths.filterIcon,
+                        scale: 2.8,
+                      ),
+                    ),
+                    Obx(
+                      () => _talkToAstroController.numOfFilterSelected.value > 0
+                          ? Positioned(
+                              top: 0,
+                              right: 0,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.red,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(
+                                    "${_talkToAstroController.numOfFilterSelected.value}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : const SizedBox(width: 0, height: 0),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(width: 10),
               PopupMenuButton(
@@ -139,24 +182,6 @@ class TalkToAstrologerPage extends StatelessWidget {
                                     fontWeight: FontWeight.w300,
                                   ),
                                 ),
-                                // TextButton(
-                                //   onPressed: () {
-                                //     _talkToAstroController
-                                //         .selectedSortBy.value = null;
-                                //   },
-                                //   style: TextButton.styleFrom(
-                                //     padding: const EdgeInsets.only(
-                                //         bottom: 0, top: 0),
-                                //   ),
-                                //   child: Text(
-                                //     "Clear",
-                                //     style: GoogleFonts.montserrat(
-                                //       color: Colors.black,
-                                //       fontSize: 15.0,
-                                //       fontWeight: FontWeight.w300,
-                                //     ),
-                                //   ),
-                                // )
                               ],
                             ),
                             const Divider(

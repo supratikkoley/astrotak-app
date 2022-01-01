@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:astrologer_app/models/all_astrologer.dart';
 import 'package:astrologer_app/services/api_service.dart';
 import 'package:astrologer_app/utils/util_functions.dart';
+import 'package:astrologer_app/widgets/filter_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,12 @@ class TalkToAstroController extends GetxController {
 
   final searchTextController = TextEditingController();
 
-  var allSkills = <Skills>{};
+  var allSkills = <Skills>{}.obs;
+  var allLanguages = <Languages>{}.obs;
+
+  var selectedLangsForFilter = <Languages>[].obs;
+  var selectedSkillsForFilter = <Skills>[].obs;
+  var numOfFilterSelected = 0.obs;
 
   var sortByList = [
     SortByItem(id: 1, title: 'Experience- high to low'),
@@ -41,13 +47,64 @@ class TalkToAstroController extends GetxController {
     });
   }
 
+  void selectLang(Languages lang) {
+    numOfFilterSelected.value += 1;
+    selectedLangsForFilter.add(lang);
+  }
+
+  void deselectLang(Languages lang) {
+    numOfFilterSelected.value -= 1;
+    selectedLangsForFilter.remove(lang);
+  }
+
+  bool isLangSelected(Languages lang) {
+    return selectedLangsForFilter.contains(lang);
+  }
+
+  void selectSkill(Skills skill) {
+    numOfFilterSelected.value += 1;
+    selectedSkillsForFilter.add(skill);
+  }
+
+  void deselectSkill(Skills skill) {
+    numOfFilterSelected.value -= 1;
+    selectedSkillsForFilter.remove(skill);
+  }
+
+  bool isSkillSelected(Skills skill) {
+    return selectedSkillsForFilter.contains(skill);
+  }
+
+  void clearAllFilters() async {
+    isFetching.value = true;
+    numOfFilterSelected.value = 0;
+    if (selectedLangsForFilter.isNotEmpty ||
+        selectedSkillsForFilter.isNotEmpty) {
+      await Future.delayed(const Duration(milliseconds: 350));
+    }
+    selectedLangsForFilter.clear();
+    selectedSkillsForFilter.clear();
+    searchedAstrologerList.value = astrologerList;
+    searchedAstrologerList.refresh();
+    isFetching.value = false;
+  }
+
   void _createUniqueSkillSetFromAllAstrologerData() {
     var skills = <Skills>{};
     for (var _astro in astrologerList) {
       skills.addAll(_astro.skills);
     }
     allSkills.addAll(skills);
-    print(allSkills.length);
+    debugPrint(allSkills.length.toString());
+  }
+
+  void _createUniqueLanguageSetFromAllAstrologerData() {
+    var langs = <Languages>{};
+    for (var _astro in astrologerList) {
+      langs.addAll(_astro.languages);
+    }
+    allLanguages.addAll(langs);
+    debugPrint(allLanguages.length.toString());
   }
 
   Future<void> getAllAstrologer() async {
@@ -62,6 +119,7 @@ class TalkToAstroController extends GetxController {
           searchedAstrologerList.value?.addAll(allAstrologer.data);
           searchedAstrologerList.refresh();
           _createUniqueSkillSetFromAllAstrologerData();
+          _createUniqueLanguageSetFromAllAstrologerData();
         }
       }
     }).catchError((err) {
@@ -76,8 +134,14 @@ class TalkToAstroController extends GetxController {
     if (query.isNotEmpty) {
       searchedAstrologerList.value = astrologerList.where((_astrologer) {
         var name = UtilFunctions.getAstrologerName(_astrologer).toLowerCase();
-        return name.contains(query);
+        return name.startsWith(query) || name.contains(query);
       }).toList();
+      //sort the result alphabetically.
+      searchedAstrologerList.value?.sort((astro1, astro2) {
+        return UtilFunctions.getAstrologerName(astro2).toLowerCase().compareTo(
+              UtilFunctions.getAstrologerName(astro1).toLowerCase(),
+            );
+      });
     } else {
       searchedAstrologerList.value = astrologerList;
     }
@@ -122,6 +186,59 @@ class TalkToAstroController extends GetxController {
       default:
         break;
     }
+  }
+
+  void filterAstrologer() async {
+    if (selectedLangsForFilter.isEmpty && selectedSkillsForFilter.isEmpty) {
+      return;
+    }
+    isFetching.value = true;
+    List<Astrologer> _astroList = [];
+    for (var _astro in astrologerList) {
+      bool _skillMatched = false;
+      bool _langMatched = false;
+      int _skillMatchedCount = 0;
+      for (var _skill in _astro.skills) {
+        if (selectedSkillsForFilter.contains(_skill)) {
+          _skillMatched = true;
+          _skillMatchedCount += 1;
+        }
+      }
+      int _langMatchedCount = 0;
+      for (var lang in _astro.languages) {
+        if (selectedLangsForFilter.contains(lang)) {
+          _langMatched = true;
+          _langMatchedCount += 1;
+        }
+      }
+      _skillMatched = selectedSkillsForFilter.length <= _skillMatchedCount;
+      _langMatched = selectedLangsForFilter.length <= _langMatchedCount;
+
+      if (selectedSkillsForFilter.isEmpty) {
+        if (_langMatched) {
+          _astroList.add(_astro);
+        }
+      } else if (selectedLangsForFilter.isEmpty) {
+        if (_skillMatched) {
+          _astroList.add(_astro);
+        }
+      } else {
+        if (_skillMatched && _langMatched) {
+          _astroList.add(_astro);
+        }
+      }
+    }
+    searchedAstrologerList.value = _astroList;
+    searchedAstrologerList.refresh();
+
+    //intentionally delaying as user can't understand somthing happended.
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    isFetching.value = false;
+  }
+
+  showFilterBottomSheet() {
+    return Get.bottomSheet(FilterBottomSheet());
   }
 }
 

@@ -55,7 +55,7 @@ class AstrologerCard extends StatelessWidget {
                   ),
                 ],
               ),
-              _textRow(context, text: astrologer.aboutMe),
+              _textRow(context, text: craeteSkillsString(astrologer.skills)),
               _textRow(context, text: craeteLangString(astrologer.languages)),
               _textRow(
                 context,
@@ -107,6 +107,18 @@ class AstrologerCard extends StatelessWidget {
         str += langs[i].name;
       } else {
         str += langs[i].name + ', ';
+      }
+    }
+    return str;
+  }
+
+  String craeteSkillsString(List<Skills> skills) {
+    String str = '';
+    for (int i = 0; i < skills.length; i++) {
+      if (i == skills.length - 1) {
+        str += skills[i].name;
+      } else {
+        str += skills[i].name + ', ';
       }
     }
     return str;

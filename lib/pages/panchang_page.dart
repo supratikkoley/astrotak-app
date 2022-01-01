@@ -137,7 +137,7 @@ class PanchangPage extends StatelessWidget {
               ),
               const SizedBox(width: 20),
               SizedBox(
-                width: Get.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.6,
                 // height: 44,
                 child: TextField(
                   controller: _panchangPageController.dateController,
@@ -178,7 +178,7 @@ class PanchangPage extends StatelessWidget {
               ),
               const SizedBox(width: 20),
               SizedBox(
-                width: Get.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.6,
                 // height: 44,
                 child: TypeAheadFormField<Place>(
                   textFieldConfiguration: TextFieldConfiguration(

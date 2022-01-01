@@ -148,6 +148,12 @@ class Languages {
     _data['name'] = name;
     return _data;
   }
+
+  @override
+  bool operator ==(Object other) => other is Languages && other.id == id;
+
+  @override
+  int get hashCode => id;
 }
 
 class Skills {
@@ -173,6 +179,12 @@ class Skills {
     _data['description'] = description;
     return _data;
   }
+
+  @override
+  bool operator ==(Object other) => other is Skills && other.id == id;
+
+  @override
+  int get hashCode => id;
 }
 
 class Images {
