@@ -57,7 +57,9 @@ class PanchangPage extends StatelessWidget {
                   ),
                   Text(
                     "Daily Panchang",
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                 ],
               ),

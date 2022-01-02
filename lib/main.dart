@@ -24,15 +24,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: TextTheme(
-          // bodyText1: GoogleFonts.montserrat(
-          //   color: Colors.black,
-          //   fontSize: 17.0,
-          //   fontWeight: FontWeight.w500,
-          // ),
+          bodyText1:
+              GoogleFonts.montserrat(color: Colors.black, fontSize: 16.0),
           bodyText2: GoogleFonts.montserrat(
             color: Colors.black87,
             fontSize: 12.0,
-            // fontWeight: FontWeight.w500,
           ),
         ),
       ),

@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 class TalkToAstroController extends GetxController {
   var astrologerList = <Astrologer>[];
   var searchedAstrologerList = Rx<List<Astrologer>?>([]);
+  var filteredAstrologerList = <Astrologer>[];
   final _apiService = ApiService();
 
   var isFetching = false.obs;
@@ -150,7 +151,11 @@ class TalkToAstroController extends GetxController {
             );
       });
     } else {
-      searchedAstrologerList.value = astrologerList;
+      if (numOfFilterSelected.value > 0) {
+        searchedAstrologerList.value = filteredAstrologerList;
+      } else {
+        searchedAstrologerList.value = astrologerList;
+      }
     }
     searchedAstrologerList.refresh();
   }
@@ -240,6 +245,7 @@ class TalkToAstroController extends GetxController {
         }
       }
     }
+    filteredAstrologerList = _astroList;
     searchedAstrologerList.value = _astroList;
     searchedAstrologerList.refresh();
 

@@ -172,12 +172,15 @@ class FilterBottomSheet extends StatelessWidget {
                       alignment: Alignment.center,
                     ),
                     child: Center(
-                      child: Text(
-                        'Clear Filters',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            ?.copyWith(color: Colors.white),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          'Clear Filters',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              ?.copyWith(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
@@ -195,12 +198,15 @@ class FilterBottomSheet extends StatelessWidget {
                     child: SizedBox(
                       width: Get.width * 0.5,
                       child: Center(
-                        child: Text(
-                          'Show Results',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(color: Colors.white),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            'Show Results',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
