@@ -3,11 +3,10 @@
 It is an example astrologer application.
 
 ## Download APKs
-<ul>
-  <a href="https://drive.google.com/file/d/1zxe5d0Eg0aijZmBy2rOX7tCxfyFjLBvc/view?usp=sharing">Download a fat release APK </a>
-  <a href="https://drive.google.com/file/d/1bb2tlTUczHAPzyuufsJ450UFgM3Jc7AK/view?usp=sharing">Download arm64-v8a-release APK </a>
-  <a href="https://drive.google.com/file/d/1nIbCBCoF3OJ_pvkajjcyn4h0jnNMRWC3/view?usp=sharing">Download arm64-v7a-release APK </a>
-</ul>
+
+* <a href="https://drive.google.com/file/d/1zxe5d0Eg0aijZmBy2rOX7tCxfyFjLBvc/view?usp=sharing">Download a fat release APK </a>
+* <a href="https://drive.google.com/file/d/1bb2tlTUczHAPzyuufsJ450UFgM3Jc7AK/view?usp=sharing">Download arm64-v8a-release APK </a>
+* <a href="https://drive.google.com/file/d/1nIbCBCoF3OJ_pvkajjcyn4h0jnNMRWC3/view?usp=sharing">Download arm64-v7a-release APK </a>
 
 ## Screenshots
 
