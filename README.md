@@ -1,6 +1,6 @@
 # astrologer_app
 
-A new Flutter project.
+It is an example astrologer application.
 
 ## Screenshots
 
