@@ -4,4 +4,4 @@ A new Flutter project.
 
 ## Screenshots
 
-![Alt text](/astro_screenshot_1.png?raw=true "1"| 200x400)
+<img src="/astro_screenshot_1.png" width="100" height="300">
