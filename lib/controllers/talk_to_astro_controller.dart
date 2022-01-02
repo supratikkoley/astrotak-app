@@ -38,6 +38,12 @@ class TalkToAstroController extends GetxController {
   void onInit() {
     super.onInit();
     getAllAstrologer();
+    selectedLangsForFilter.listen((_) {
+      filterAstrologer();
+    });
+    selectedSkillsForFilter.listen((_) {
+      filterAstrologer();
+    });
     searchTextController.addListener(() {
       searchAstrologer();
     });
@@ -76,16 +82,17 @@ class TalkToAstroController extends GetxController {
   }
 
   void clearAllFilters() async {
+    if (selectedLangsForFilter.isEmpty && selectedSkillsForFilter.isEmpty) {
+      return;
+    }
     isFetching.value = true;
     numOfFilterSelected.value = 0;
-    if (selectedLangsForFilter.isNotEmpty ||
-        selectedSkillsForFilter.isNotEmpty) {
-      await Future.delayed(const Duration(milliseconds: 350));
-    }
     selectedLangsForFilter.clear();
     selectedSkillsForFilter.clear();
     searchedAstrologerList.value = astrologerList;
     searchedAstrologerList.refresh();
+
+    await Future.delayed(const Duration(milliseconds: 350));
     isFetching.value = false;
   }
 
@@ -95,7 +102,7 @@ class TalkToAstroController extends GetxController {
       skills.addAll(_astro.skills);
     }
     allSkills.addAll(skills);
-    debugPrint(allSkills.length.toString());
+    // debugPrint(allSkills.length.toString());
   }
 
   void _createUniqueLanguageSetFromAllAstrologerData() {
@@ -104,7 +111,7 @@ class TalkToAstroController extends GetxController {
       langs.addAll(_astro.languages);
     }
     allLanguages.addAll(langs);
-    debugPrint(allLanguages.length.toString());
+    // debugPrint(allLanguages.length.toString());
   }
 
   Future<void> getAllAstrologer() async {
@@ -189,10 +196,15 @@ class TalkToAstroController extends GetxController {
   }
 
   void filterAstrologer() async {
+    isFetching.value = true;
     if (selectedLangsForFilter.isEmpty && selectedSkillsForFilter.isEmpty) {
+      searchedAstrologerList.value = astrologerList;
+      searchedAstrologerList.refresh();
+      //intentionally delaying as user can't understand somthing happended.
+      await Future.delayed(const Duration(milliseconds: 350));
+      isFetching.value = false;
       return;
     }
-    isFetching.value = true;
     List<Astrologer> _astroList = [];
     for (var _astro in astrologerList) {
       bool _skillMatched = false;
@@ -232,7 +244,7 @@ class TalkToAstroController extends GetxController {
     searchedAstrologerList.refresh();
 
     //intentionally delaying as user can't understand somthing happended.
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 350));
 
     isFetching.value = false;
   }

@@ -61,7 +61,10 @@ class SearchBar extends StatelessWidget {
                     ),
                     suffixIcon: IconButton(
                       onPressed: () {
-                        _astroController.searchTextController.clear();
+                        if (_astroController
+                            .searchTextController.text.isNotEmpty) {
+                          _astroController.searchTextController.clear();
+                        }
                       },
                       icon: Icon(
                         Icons.clear,

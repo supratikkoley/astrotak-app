@@ -73,44 +73,54 @@ class PanchangPage extends StatelessWidget {
               _buildDateAndLocationInputContainer(context),
               const SizedBox(height: 12),
               Obx(
-                () => _panchangPageController.panchangData.value != null
-                    ? Column(
-                        children: [
-                          smallDetailsRow(
-                              _panchangPageController.panchangData.value!),
-                          const Divider(
-                            color: Colors.black26,
-                            thickness: 1.0,
-                            height: 20,
-                          ),
-                          const SizedBox(height: 14),
-                          detailedTable(
-                            title: "Tithi",
-                            data: _panchangPageController.getPanchagData!.tithi
-                                .toJson(),
-                          ),
-                          const SizedBox(height: 14),
-                          detailedTable(
-                            title: "Nakshatra",
-                            data: _panchangPageController
-                                .getPanchagData!.nakshatra
-                                .toJson(),
-                          ),
-                          const SizedBox(height: 14),
-                          detailedTable(
-                            title: "Yog",
-                            data: _panchangPageController.getPanchagData!.yog
-                                .toJson(),
-                          ),
-                          const SizedBox(height: 14),
-                          detailedTable(
-                            title: "Karan",
-                            data: _panchangPageController.getPanchagData!.karan
-                                .toJson(),
-                          ),
-                        ],
+                () => _panchangPageController.isFetching.value
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 1.0,
+                          color: ColorHelper.orange,
+                        ),
                       )
-                    : const SizedBox(width: 0, height: 0),
+                    : _panchangPageController.panchangData.value != null
+                        ? Column(
+                            children: [
+                              smallDetailsRow(
+                                  _panchangPageController.panchangData.value!),
+                              const Divider(
+                                color: Colors.black26,
+                                thickness: 1.0,
+                                height: 20,
+                              ),
+                              const SizedBox(height: 14),
+                              detailedTable(
+                                title: "Tithi",
+                                data: _panchangPageController
+                                    .getPanchagData!.tithi
+                                    .toJson(),
+                              ),
+                              const SizedBox(height: 14),
+                              detailedTable(
+                                title: "Nakshatra",
+                                data: _panchangPageController
+                                    .getPanchagData!.nakshatra
+                                    .toJson(),
+                              ),
+                              const SizedBox(height: 14),
+                              detailedTable(
+                                title: "Yog",
+                                data: _panchangPageController
+                                    .getPanchagData!.yog
+                                    .toJson(),
+                              ),
+                              const SizedBox(height: 14),
+                              detailedTable(
+                                title: "Karan",
+                                data: _panchangPageController
+                                    .getPanchagData!.karan
+                                    .toJson(),
+                              ),
+                            ],
+                          )
+                        : const SizedBox(width: 0, height: 0),
               )
             ],
           ),
@@ -231,7 +241,20 @@ class PanchangPage extends StatelessWidget {
                     hasScrollbar: true,
                   ),
                   noItemsFoundBuilder: (context) {
-                    // ignore: avoid_unnecessary_containers
+                    if (_panchangPageController.isFetchingPlaces.value) {
+                      return const SizedBox(
+                        height: 50,
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: CircularProgressIndicator(
+                              strokeWidth: 1.0,
+                              color: ColorHelper.orange,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
                     return Container(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(

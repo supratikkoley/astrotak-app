@@ -18,6 +18,9 @@ class PanchangPageController extends GetxController {
 
   var panchangData = Rx<PanchangResponseData?>(null);
 
+  var isFetching = false.obs;
+  var isFetchingPlaces = false.obs;
+
   Data? get getPanchagData => panchangData.value?.data;
 
   final _apiService = ApiService();
@@ -67,6 +70,8 @@ class PanchangPageController extends GetxController {
 
   Future<List<Place>> getPlaces(String pattern) async {
     List<Place> _places = [];
+    if (pattern.isEmpty) return _places;
+    isFetchingPlaces.value = true;
     await _apiService.getPlaces(pattern).then((res) {
       if (res.statusCode == 200) {
         var resJson = json.decode(res.body);
@@ -76,12 +81,14 @@ class PanchangPageController extends GetxController {
         }
       }
     }).catchError((err) {});
+    isFetchingPlaces.value = false;
     return _places;
   }
 
   Future<PanchangResponseData?> fetchPanchang(
       {required DateTime date, required String placeId}) async {
     PanchangResponseData? panchangResponseData;
+    isFetching.value = true;
     await _apiService.fetchPanchag(date: date, placeId: placeId).then((res) {
       if (res.statusCode == 200) {
         var resJson = json.decode(res.body);
@@ -94,6 +101,7 @@ class PanchangPageController extends GetxController {
     }).catchError((err) {
       debugPrint("$err");
     });
+    isFetching.value = false;
     return panchangResponseData;
   }
 

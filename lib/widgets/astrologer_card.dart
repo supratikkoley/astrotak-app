@@ -22,7 +22,7 @@ class AstrologerCard extends StatelessWidget {
             astrologer.images.medium.imageUrl,
             errorBuilder: (context, error, stackTrace) {
               return Container(
-                color: Colors.grey,
+                color: Colors.grey[300],
               );
             },
             fit: BoxFit.cover,
@@ -55,6 +55,7 @@ class AstrologerCard extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 4),
               _textRow(context, text: craeteSkillsString(astrologer.skills)),
               _textRow(context, text: craeteLangString(astrologer.languages)),
               _textRow(
@@ -62,8 +63,11 @@ class AstrologerCard extends StatelessWidget {
                 text: "₹" +
                     astrologer.minimumCallDurationCharges.toInt().toString() +
                     "/ Min",
-                textStyle:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                textStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: Colors.black,
+                ),
               ),
               const SizedBox(height: 20),
               Padding(
@@ -126,7 +130,7 @@ class AstrologerCard extends StatelessWidget {
 
   Widget _textRow(BuildContext context, {String? text, TextStyle? textStyle}) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 3.0),
+      padding: const EdgeInsets.only(bottom: 4.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

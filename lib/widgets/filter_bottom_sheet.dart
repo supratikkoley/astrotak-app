@@ -36,7 +36,7 @@ class FilterBottomSheet extends StatelessWidget {
                   constraints: const BoxConstraints(),
                   onPressed: () {
                     Get.back();
-                    _astroController.clearAllFilters();
+                    // _astroController.clearAllFilters();
                   },
                   iconSize: 20,
                   color: Colors.black54,
@@ -161,23 +161,47 @@ class FilterBottomSheet extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Get.back();
-                    _astroController.filterAstrologer();
-                  },
-                  style: ElevatedButton.styleFrom(
-                      primary: ColorHelper.orange.withOpacity(0.9),
-                      alignment: Alignment.center),
-                  child: SizedBox(
-                    width: Get.width * 0.5,
+                Expanded(
+                  flex: 1,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _astroController.clearAllFilters();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.grey[400],
+                      alignment: Alignment.center,
+                    ),
                     child: Center(
                       child: Text(
-                        'Apply',
+                        'Clear Filters',
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
                             ?.copyWith(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  flex: 2,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    style: ElevatedButton.styleFrom(
+                        primary: ColorHelper.orange.withOpacity(0.9),
+                        alignment: Alignment.center),
+                    child: SizedBox(
+                      width: Get.width * 0.5,
+                      child: Center(
+                        child: Text(
+                          'Show Results',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              ?.copyWith(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),

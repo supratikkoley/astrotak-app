@@ -50,8 +50,9 @@ class TalkToAstrologerPage extends StatelessWidget {
           ),
           Obx(
             () => _talkToAstroController.isFetching.value
-                ? const Expanded(
-                    child: Center(
+                ? const Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 30.0),
                       child: CircularProgressIndicator(
                         strokeWidth: 1.0,
                         color: ColorHelper.orange,
@@ -106,12 +107,16 @@ class TalkToAstrologerPage extends StatelessWidget {
                 onTap: () {
                   _talkToAstroController.showSearch.toggle();
                 },
-                child: Image.asset(
-                  AssetPaths.searchIcon,
-                  scale: 2.8,
+                child: Container(
+                  padding: const EdgeInsets.only(
+                      top: 11, right: 11, bottom: 10, left: 11),
+                  child: Image.asset(
+                    AssetPaths.searchIcon,
+                    scale: 2.8,
+                  ),
                 ),
               ),
-              const SizedBox(width: 14),
+              // const SizedBox(width: 14),
               InkWell(
                 onTap: () {
                   _talkToAstroController.showFilterBottomSheet();
@@ -119,8 +124,8 @@ class TalkToAstrologerPage extends StatelessWidget {
                 child: Stack(
                   children: [
                     Container(
-                      padding:
-                          const EdgeInsets.only(top: 11, right: 11, bottom: 10),
+                      padding: const EdgeInsets.only(
+                          top: 11, right: 11, bottom: 10, left: 11),
                       // color: Colors.yellow,
                       child: Image.asset(
                         AssetPaths.filterIcon,
@@ -158,6 +163,7 @@ class TalkToAstrologerPage extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               PopupMenuButton(
+                tooltip: 'Sort',
                 child: Image.asset(
                   AssetPaths.sortIcon,
                   scale: 2.8,
