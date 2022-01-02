@@ -10,8 +10,8 @@ It is an example astrologer application.
 
 ## Screenshots
 
-<img src="/astro_screenshot_1.png" width="200" height="400"> <img src="/astro_screenshot_2.png" width="200" height="400"> <img src="/astro_screenshot_3.png" width="200" height="400">
+<img src="/astro_screenshot_1.png" width="250" height="500"> <img src="/astro_screenshot_2.png" width="250" height="500"> <img src="/astro_screenshot_3.png" width="250" height="500">
 
-<img src="/astro_screenshot_4.png" width="200" height="400"> <img src="/astro_screenshot_5.png" width="200" height="400"> <img src="/astro_screenshot_6.png" width="200" height="400">
+<img src="/astro_screenshot_4.png" width="250" height="500"> <img src="/astro_screenshot_5.png" width="250" height="500"> <img src="/astro_screenshot_6.png" width="250" height="500">
 
 
