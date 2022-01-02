@@ -2,6 +2,9 @@
 
 It is an example astrologer application.
 
+## Download APKs
+<a href="https://drive.google.com/file/d/1zxe5d0Eg0aijZmBy2rOX7tCxfyFjLBvc/view?usp=sharing">Download a fat APK </a>
+
 ## Screenshots
 
 <img src="/astro_screenshot_1.png" width="200" height="400"> <img src="/astro_screenshot_2.png" width="200" height="400"> <img src="/astro_screenshot_3.png" width="200" height="400">
