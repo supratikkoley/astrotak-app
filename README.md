@@ -1,6 +1,6 @@
 # astrologer_app
 
-It is an example astrologer application.
+It is an example of astrologer application.
 
 ## Download APKs
 
